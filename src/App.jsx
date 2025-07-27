@@ -1,9 +1,13 @@
 import React from 'react'
+import Navbar from './components/Navbar'
 
 const App = () => {
   return (
-    <div className='text-2xl bg-amber-200'>App</div>
-  )
+<>
+    <Navbar />
+</>  
+
+)
 }
 
 export default App
