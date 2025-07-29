@@ -1,9 +1,18 @@
+import React, { useState } from 'react';
 import { MdKeyboardArrowDown } from 'react-icons/md';
 import { Link } from 'react-router'
 
 const Navbar = () => {
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [activeDropdown, setIsActiveDropdown] = useState(null);
 
-    
+    const toggleMenu =()=>{
+        setIsMenuOpen(!isMenuOpen);
+    }
+    const toggleDropdown =(menu)=>{
+        setIsActiveDropdown(activeDropdown === menu ? null : menu); 
+    }
+
   const menuItems = {
     platform: {
       title: 'Platform',
@@ -65,17 +74,20 @@ const Navbar = () => {
                 </div>
 
                 {/* desktop menu */}
-                <div>
+                <div className='hidden lg:flex items-center space-x-4'>
                    {
                     Object.keys(menuItems).map((key) => (
                         <div>
-                            <button>{menuItems[key].title}</button>
-                            <MdKeyboardArrowDown/>
+                            <button onClick={()=> toggleDropdown(key)} className='hover:text-gray-300 px-3 py-2 rounded-md text-sm font-medium flex items-center'>
+                              {menuItems[key].title}
+
+                              <MdKeyboardArrowDown className={`ml-2 h-5 w-5 transition-transform ${activeDropdown === key ? 'transform rotate-180' : ''}`} />
+                            </button>  
                         </div>
-    
-                    ))
-                    
+                    )) 
                     }
+                    <Link to='/enterprise' className='hover:text-gray-300'>Enterprise</Link>
+                    <Link to='/pricing' className='hover:text-gray-300'>Pricing</Link>
                 </div>
 
                 {/* auth button */}
